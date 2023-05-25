@@ -7,23 +7,16 @@ namespace Horror
     {
         public static StageScene Instance = null;
 
-        // プレイヤー
-        [SerializeField] private GameObject player = null;
-        // 表示する場所
-        [SerializeField] private GameObject[] places = { null };
-
-
         private void Awake()
         {
             Instance = this;
         }
 
-        // 次の場所の表示
-        public void ShowNextPlace()
+        // 次の場所を表示する
+        public void ShowNextPlace(GameObject current, GameObject next)
         {
-            places[0].SetActive(false);
-            player.transform.position = new Vector3(-3.48f, 0.0f, 0.0f);
-            places[1].SetActive(true);
+            current.SetActive(false);
+            next.SetActive(true);
         }
     }
 }

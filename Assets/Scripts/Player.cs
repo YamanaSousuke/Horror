@@ -55,6 +55,13 @@ namespace Horror
             animator.SetFloat(speedId, rigidbody.velocity.magnitude / dashSpeed);
         }
 
+        // êŠ‚ªØ‚è‘Ö‚í‚Á‚½‚Æ‚«‚ÉÀ•W‚ğİ’è‚·‚é
+        public void SetPosition(Vector3 position, Vector3 direction)
+        {
+            transform.position = new Vector3(position.x, 0.0f, position.z);
+            transform.rotation = Quaternion.LookRotation(direction);
+        }
+
         // ˆÚ“®‚Ì“ü—Í‚ğó‚¯æ‚é
         public void OnMove(InputAction.CallbackContext context)
         {
@@ -79,14 +86,6 @@ namespace Horror
                 isDash = false;
                 currentSpeed = walkSpeed;
                 break;
-            }
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("Exit"))
-            {
-                StageScene.Instance.ShowNextPlace();
             }
         }
     }
