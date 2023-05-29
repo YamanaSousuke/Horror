@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 namespace Horror
 {
     // プレイヤーの制御
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, ICharacterMovement
     {
         // 歩くときの移動スピード
         [SerializeField] private float walkSpeed = 0.0f;
@@ -55,8 +55,8 @@ namespace Horror
             animator.SetFloat(speedId, rigidbody.velocity.magnitude / dashSpeed);
         }
 
-        // 場所が切り替わったときに座標を設定する
-        public void SetPosition(Vector3 position, Vector3 direction)
+        // 場所が切り替わったときに座標と回転を設定する
+        public void SetTransform(Vector3 position, Vector3 direction)
         {
             transform.position = new Vector3(position.x, 0.0f, position.z);
             transform.rotation = Quaternion.LookRotation(direction);

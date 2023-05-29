@@ -19,12 +19,6 @@ namespace Horror
         }
         [SerializeField] private InitRotation initRotation = InitRotation.Up;
 
-        // 表示させる場所
-        public GameObject ShowPlace()
-        {
-            return transform.parent.gameObject;
-        }
-
         // プレイヤーの初期の向き
         public Vector3 InitDirection()
         {
@@ -45,12 +39,6 @@ namespace Horror
                 // その他
                 default: return Vector3.zero;
             }
-        }
-
-        // プレイヤーの初期座標
-        public Vector3 InitPosition()
-        {
-            return transform.position;
         }
     }
 }

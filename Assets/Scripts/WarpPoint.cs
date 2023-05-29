@@ -1,3 +1,4 @@
+using Horr;
 using UnityEngine;
 
 namespace Horror
@@ -7,13 +8,15 @@ namespace Horror
     {
         // 次の場所で生成するポイント
         [SerializeField] private GeneratePoint generatePoint = null;
+        // 次の場所
+        [SerializeField] private LocationController nextLocation = null;
 
-        // 現在の場所
-        private GameObject currentPlace = null;
+        // この場所
+        private LocationController thisLocation = null;
 
         private void Start()
         {
-            currentPlace = transform.parent.gameObject;
+            thisLocation = transform.parent.GetComponent<LocationController>();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -21,9 +24,17 @@ namespace Horror
             // プレイヤーと接触したとき
             if (other.TryGetComponent(out Player player))
             {
-                // 現在の場所を非表示にして、次の場所を表示する
-                StageScene.Instance.ShowNextPlace(currentPlace, generatePoint.ShowPlace());
-                player.SetPosition(generatePoint.InitPosition(), generatePoint.InitDirection());
+                thisLocation.HideLocation();
+                nextLocation.ShowLocation();
+                player.SetTransform(generatePoint.transform.position, generatePoint.InitDirection());
+                StageScene.Instance.OnDifferentLocation(transform.position);
+            }
+
+            // 敵と接触したとき
+            if (other.TryGetComponent(out Enemy enemy))
+            {
+                enemy.SetTransform(generatePoint.transform.position, generatePoint.InitDirection());
+                StageScene.Instance.OnSameLocation();
             }
         }
     }

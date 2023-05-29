@@ -1,3 +1,4 @@
+using Horr;
 using UnityEngine;
 
 namespace Horror
@@ -10,6 +11,13 @@ namespace Horror
 
         // ゲームオーバーUI
         [SerializeField] private GameObject gameOverUI = null;
+        // 敵
+        [SerializeField] private Enemy enemy = null;
+
+        // プレイヤーが移動した回数
+        private int playerCount = 0;
+        // 敵が移動した回数
+        private int enemyCount = 0;
 
         private void Awake()
         {
@@ -27,6 +35,18 @@ namespace Horror
         public void ShowGameOverUI()
         {
             gameOverUI.SetActive(true);
+        }
+
+        // プレイヤーと敵が違う場所になったとき
+        public void OnDifferentLocation(Vector3 destination)
+        {
+            enemy.DifferentLocation(destination);
+        }
+
+        // プレイヤーと敵が同じ場所になったとき
+        public void OnSameLocation()
+        {
+            enemy.SameLocation();
         }
     }
 }
